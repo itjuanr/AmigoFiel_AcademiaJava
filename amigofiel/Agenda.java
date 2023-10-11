@@ -1,13 +1,16 @@
 package amigofiel;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Agenda {
 	private String nome;
 	private String servico;
-	private String data;
+	private Date data;
 	private String horario;
 	
 
-public Agenda (String nome, String servico, String data, String horario) {
+public Agenda (String nome, String servico, Date data, String horario) {
 	this.nome = nome;
 	this.servico = servico;
 	this.data = data;
@@ -22,7 +25,7 @@ public String getServico() {
 	return this.servico;
 }
 
-public String getData() {
+public Date getData() {
 	return this.data;
 }
 
@@ -38,7 +41,7 @@ public void setServico(String servico) {
 	this.servico = servico;
 }
 
-public void setData(String data) {
+public void setData(Date data) {
 	this.data = data;
 }
 
@@ -46,5 +49,17 @@ public void setHorario(String horario) {
 	this.horario = horario;
 }
 
+public void agendar(ArrayList<Agenda> agenda, Agenda novoAgendamento) {
+	for (Agenda agendamento : agenda) {
+		if(agendamento.getHorario().equals(novoAgendamento.getHorario()) &&
+				agendamento.getData().equals(novoAgendamento.getData())) {
+			System.out.println("A Data selecionada já está ocupada, escolha outro horário!");
+			return;
+		}
+	}
+	
+	agenda.add(novoAgendamento);
+	System.out.println("Agendamento realizado com sucesso!");
+}
 
 }
