@@ -1,65 +1,70 @@
 package amigofiel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Agenda {
-	private String nome;
-	private String servico;
-	private Date data;
-	private String horario;
-	
+    private Animal animal;
+    private Servico servico;
+    private Date data;
+    private String horario;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-public Agenda (String nome, String servico, Date data, String horario) {
-	this.nome = nome;
-	this.servico = servico;
-	this.data = data;
-	this.horario = horario;
-}
+    public Agenda(Animal animal, Servico servico, String data, String horario) {
+        this.animal = animal;
+        this.servico = servico;
+        try {
+            this.data = dateFormat.parse(data + " " + horario);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.horario = horario;
+    }
 
-public String getNome() {
-	return this.nome;
-}
+    // Getters e setters
+    public Animal getAnimal() {
+        return animal;
+    }
 
-public String getServico() {
-	return this.servico;
-}
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
+    }
 
-public Date getData() {
-	return this.data;
-}
+    public Servico getServico() {
+        return servico;
+    }
 
-public String getHorario() {
-	return this.horario;
-}
+    public void setServico(Servico servico) {
+        this.servico = servico;
+    }
 
-public void setNome(String nome) {
-	this.nome = nome;
-}
+    public Date getData() {
+        return data;
+    }
 
-public void setServico(String servico) {
-	this.servico = servico;
-}
+    public void setData(Date data) {
+        this.data = data;
+    }
 
-public void setData(Date data) {
-	this.data = data;
-}
+    public String getHorario() {
+        return horario;
+    }
 
-public void setHorario(String horario) {
-	this.horario = horario;
-}
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 
-public void agendar(ArrayList<Agenda> agenda, Agenda novoAgendamento) {
-	for (Agenda agendamento : agenda) {
-		if(agendamento.getHorario().equals(novoAgendamento.getHorario()) &&
-				agendamento.getData().equals(novoAgendamento.getData())) {
-			System.out.println("A Data selecionada já está ocupada, escolha outro horário!");
-			return;
-		}
-	}
-	
-	agenda.add(novoAgendamento);
-	System.out.println("Agendamento realizado com sucesso!");
-}
-
+    public void agendar(ArrayList<Agenda> agenda, Agenda novoAgendamento) {
+        for (Agenda agendamento : agenda) {
+            if (agendamento.getHorario().equals(novoAgendamento.getHorario()) &&
+                    agendamento.getData().equals(novoAgendamento.getData())) {
+                System.out.println("A Data selecionada já está ocupada, escolha outro horário!");
+                return;
+            }
+        }
+        agenda.add(novoAgendamento);
+        System.out.println("Agendamento realizado com sucesso!");
+    }
 }
